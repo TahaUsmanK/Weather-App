@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_antonx_boilerplate/ui/screens/weather_screen/weather_screen.dart';
+import 'package:flutter_antonx_boilerplate/ui/screens/home_screen/home_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyApp extends StatelessWidget {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(_designWidth, _designHeight),
       builder: (context, widget) => MaterialApp(
         title: title,
-        home: WeatherScreen(),
+        home: HomeScreen(),
       ),
     );
   }
