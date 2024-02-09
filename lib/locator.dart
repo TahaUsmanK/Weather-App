@@ -7,5 +7,5 @@ GetIt locator = GetIt.instance;
 
 setupLocator(Env env) async {
   locator.registerSingleton(Config(env));
-  locator.registerSingleton<ApiServices>(ApiServices());
+  locator.registerSingleton<ApiService>(ApiService());
 }

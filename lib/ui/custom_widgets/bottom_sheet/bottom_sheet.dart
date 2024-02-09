@@ -22,9 +22,7 @@ class _DraggebleBottomSheetState extends State<DraggebleBottomSheet> {
           ),
           color: Color.fromARGB(166, 46, 51, 90),
         ),
-        child: Column(children: [
-        
-        ]),
+        child: Column(children: []),
       ),
     );
   }

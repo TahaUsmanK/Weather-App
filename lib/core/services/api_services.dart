@@ -1,54 +1,41 @@
-import 'dart:math';
+import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter_antonx_boilerplate/core/config/config.dart';
-import 'package:flutter_antonx_boilerplate/core/models/responses/base_responses/request_response.dart';
-import 'package:flutter_antonx_boilerplate/locator.dart';
-import 'package:logger/logger.dart';
 
-class ApiServices {
-  final _config = locator<Config>();
-  final String apiKey = 'yqZlfaolqpWLaJX9LZ8CJo2fCEUK3wTKXGNkdjgZ';
-  final Logger _logger = Logger();
-  var jsonList;
+class ApiService {
+  static final Dio _dio = Dio();
 
-  Future<Dio> launchDio() async {
-    Dio dio = Dio();
+  static Future<Map<String, dynamic>> fetchWeatherData(
+      {double? lat, double? lon, String cityName = ''}) async {
+    final baseUri = 'https://api.openweathermap.org/data/2.5/onecall';
+    final apiKey = '1369dd6b5ae78fc9952261ab9aa236b4';
 
-    dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
-    dio.options.headers['X-Api-Key'] = '$apiKey';
-    return dio;
-  }
+    final queryParameters = {
+      'lat': lat?.toString(),
+      'lon': lon?.toString(),
+      'appid': apiKey,
+      'exclude': 'minutely,alerts',
+      'units': 'metric',
+      'lang': 'en',
+    };
 
-  Future<RequestResponse> getWeather({
-    required double latitude,
-    required double longitude,
-    String? city,
-  }) async {
-    Dio dio = await launchDio();
+    if (cityName.isNotEmpty) {
+      queryParameters['q'] = cityName;
+    }
+
+    final uri = Uri.parse(baseUri).replace(queryParameters: queryParameters);
 
     try {
-      String baseUrl = '${_config.baseUrl}';
-      if (city != null) {
-        baseUrl += 'city=$city';
-      } else {
-        baseUrl += 'lat=$latitude&lon=$longitude';
-      }
-
-      final response = await dio.get(baseUrl);
-
-      _logger.d('Response: ${response.statusCode} ${response.data}');
+      final response = await _dio.get(uri.toString());
       if (response.statusCode == 200) {
-        Map<String, dynamic> responseData =
-            response.data as Map<String, dynamic>;
-        jsonList = responseData;
-        return RequestResponse(true, data: jsonList);
-      } else if (response.statusCode == 500) {
-        return RequestResponse(false, error: 'Server Error');
+        final dynamic responseData = response.data;
+        print('Response data: $responseData');
+        return responseData; // Directly return the response data
       } else {
-        return RequestResponse(false, error: 'Something went wrong: $e');
+        throw Exception('Error: ${response.statusCode}');
       }
     } catch (e) {
-      return RequestResponse(false, error: 'Error: $e');
+      print('Error fetching weather data: $e');
+      rethrow;
     }
   }
 }
