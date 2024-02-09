@@ -28,8 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
         lat: position.latitude,
         lon: position.longitude,
       );
-      final homeViewModel = Provider.of<HomeViewModel>(context, listen: false);
-      homeViewModel.updateWeatherData(weatherData);
+      // Update weather data in the ViewModel
+      Provider.of<HomeViewModel>(context, listen: false)
+          .updateWeatherData(weatherData);
     } else {
       print('Unable to fetch current location');
     }
@@ -37,10 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeViewModel>(
-      builder: (context, homeViewModel, _) {
-        return Scaffold(
-          body: Stack(
+    return Scaffold(
+      body: Consumer<HomeViewModel>(
+        builder: (context, homeViewModel, _) {
+          return Stack(
             fit: StackFit.expand,
             children: [
               // Background Image
@@ -114,13 +115,12 @@ class _HomeScreenState extends State<HomeScreen> {
               // Draggable Bottom Sheet
               DraggebleBottomSheet(),
             ],
-          ),
-          floatingActionButton: FAB(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: BottomNavBar(),
-        );
-      },
+          );
+        },
+      ),
+      floatingActionButton: FAB(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

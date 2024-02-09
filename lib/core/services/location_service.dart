@@ -1,4 +1,5 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 Future<Position?> getCurrentLocation() async {
   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -19,4 +20,17 @@ Future<Position?> getCurrentLocation() async {
   }
 
   return await Geolocator.getCurrentPosition();
+}
+
+Future<String> getCityName(Position position) async {
+  final List<Placemark> placemarks = await placemarkFromCoordinates(
+    position.latitude,
+    position.longitude,
+  );
+  if (placemarks.isNotEmpty) {
+    final Placemark placemark = placemarks.first;
+    return placemark.locality ?? 'Unknown';
+  } else {
+    return 'Unknown';
+  }
 }
