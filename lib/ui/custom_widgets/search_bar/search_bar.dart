@@ -39,7 +39,7 @@ class CustomSearchBar extends StatelessWidget {
                     horizontal: 4,
                   ),
                 ),
-                onSubmitted: onSearch, // Invoke callback on search submit
+                onSubmitted: onSearch,
               ),
             ),
           ],

@@ -106,6 +106,6 @@ class WeatherWidget extends StatelessWidget {
     if (unixTimestamp == 0) return 'N/A';
     DateTime dateTime =
         DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
-    return '${dateTime.hour}:${dateTime.minute}';
+    return '${dateTime.hour}';
   }
 }
