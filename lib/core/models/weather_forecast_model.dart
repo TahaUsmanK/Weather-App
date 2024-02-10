@@ -1,4 +1,4 @@
-import 'package:flutter_antonx_boilerplate/core/models/weather_forecast_daily.dart';
+import 'package:flutter_antonx_boilerplate/core/models/weather_forecast.dart';
 
 class WeatherForecast {
   final List<WeatherForecastDaily> daily;

@@ -45,7 +45,7 @@ dependencies:
   get: ^4.6.6
   geocoding: ^2.1.1
   intl: ^0.19.0
-
+  sliding_up_panel2: ^3.3.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

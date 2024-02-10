@@ -8,6 +8,11 @@ class FAB extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () {},
       shape: CircleBorder(),
+      elevation: 100,
+      child: Icon(
+        Icons.add,
+        size: 35,
+      ),
     );
   }
 }

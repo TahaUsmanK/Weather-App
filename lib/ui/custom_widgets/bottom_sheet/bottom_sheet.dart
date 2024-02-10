@@ -56,6 +56,9 @@ class _DraggebleBottomSheetState extends State<DraggebleBottomSheet> {
   Widget _buildTabBar() {
     return TabBar(
       labelColor: Colors.grey.shade300,
+      indicatorColor: Colors.white,
+      indicatorSize: TabBarIndicatorSize.tab,
+      indicatorWeight: 3,
       tabs: [
         Tab(
           text: 'Hourly Forecast',

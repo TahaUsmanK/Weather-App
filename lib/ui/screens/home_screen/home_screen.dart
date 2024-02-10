@@ -121,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavBar(),
+      backgroundColor: Colors.transparent,
     );
   }
 }

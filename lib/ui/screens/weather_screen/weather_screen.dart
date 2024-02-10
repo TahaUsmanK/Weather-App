@@ -1,8 +1,7 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_antonx_boilerplate/ui/custom_widgets/hourly_weather/hourly_weather.dart';
 import 'package:flutter_antonx_boilerplate/ui/custom_widgets/search_bar/search_bar.dart';
-import 'package:flutter_antonx_boilerplate/ui/custom_widgets/weekly_weather_widget/weekly_weather_widget.dart';
 import 'package:flutter_antonx_boilerplate/ui/screens/home_screen/home_screen_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +13,14 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
+  TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -24,6 +31,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   Future<void> _searchCity(String cityName) async {
     await Provider.of<HomeViewModel>(context, listen: false)
         .searchCity(cityName);
+    print('cityName: $cityName');
   }
 
   @override
@@ -59,45 +67,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
             left: 16,
             right: 16,
             child: CustomSearchBar(
+              controller: _searchController,
               onSearch: _searchCity,
-            ),
-          ),
-          Positioned(
-            top: 200,
-            left: 16,
-            right: 16,
-            child: Consumer<HomeViewModel>(
-              builder: (context, viewModel, _) {
-                final weatherData = viewModel.weatherData;
-                if (weatherData == null || weatherData.isEmpty) {
-                  return CircularProgressIndicator();
-                } else {
-                  // Ensure weatherData['hourly'] is cast to List<Map<String, dynamic>>
-                  final hourlyData = (weatherData['hourly'] as List?)
-                          ?.cast<Map<String, dynamic>>() ??
-                      [];
-                  return HourlyWeatherWidget(hourlyWeatherData: hourlyData);
-                }
-              },
-            ),
-          ),
-          Positioned(
-            top: 350,
-            left: 16,
-            right: 16,
-            child: Consumer<HomeViewModel>(
-              builder: (context, viewModel, _) {
-                final weatherData = viewModel.weatherData;
-                if (weatherData == null || weatherData.isEmpty) {
-                  return CircularProgressIndicator();
-                } else {
-                  // Ensure weatherData['daily'] is cast to List<Map<String, dynamic>>
-                  final weeklyData = (weatherData['daily'] as List?)
-                          ?.cast<Map<String, dynamic>>() ??
-                      [];
-                  return WeeklyWeatherWidget(weeklyWeatherData: weeklyData);
-                }
-              },
             ),
           ),
         ],
