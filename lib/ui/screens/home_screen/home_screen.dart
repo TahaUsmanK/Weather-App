@@ -3,6 +3,7 @@ import 'package:flutter_antonx_boilerplate/core/services/api_services.dart';
 import 'package:flutter_antonx_boilerplate/core/services/location_service.dart';
 import 'package:flutter_antonx_boilerplate/ui/custom_widgets/bottom_nav_bar/bottom_navigator_bar.dart';
 import 'package:flutter_antonx_boilerplate/ui/custom_widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:flutter_antonx_boilerplate/ui/custom_widgets/bottom_sheet_widget/bottom_sheet.dart';
 import 'package:flutter_antonx_boilerplate/ui/custom_widgets/floating_action_button/floating_action_button.dart';
 import 'package:flutter_antonx_boilerplate/ui/screens/home_screen/home_screen_view_model.dart';
 import 'package:provider/provider.dart';
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               // Draggable Bottom Sheet
-              DraggebleBottomSheet(),
+              BottomSheets(),
             ],
           );
         },
