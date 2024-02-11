@@ -4,8 +4,22 @@ import 'package:glass_kit/glass_kit.dart';
 import 'draggable_bottom_sheet_nullsafety.dart';
 import 'bottom_sheet_weather_hourly.dart';
 
-class BottomSheets extends StatelessWidget {
+class BottomSheets extends StatefulWidget {
   const BottomSheets({Key? key}) : super(key: key);
+
+  @override
+  State<BottomSheets> createState() => _BottomSheetsState();
+}
+
+class _BottomSheetsState extends State<BottomSheets>
+    with SingleTickerProviderStateMixin {
+  late TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,28 +75,6 @@ class BottomSheets extends StatelessWidget {
           maxExtent: MediaQuery.of(context)
               .size
               .height, // Occupies entire screen height
-        ),
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: Container(
-            color: Colors.black, // Adjust color as needed
-            child: TabBar(
-              labelColor: Colors.grey.shade300,
-              indicatorColor: Colors.white,
-              indicatorSize: TabBarIndicatorSize.tab,
-              indicatorWeight: 3,
-              tabs: [
-                Tab(
-                  text: 'Hourly Forecast',
-                ),
-                Tab(
-                  text: 'Weekly Forecast',
-                ),
-              ],
-            ),
-          ),
         ),
       ],
     );
